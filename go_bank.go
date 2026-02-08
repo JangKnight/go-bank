@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-const balanceFile = "balanceFile"
+const balanceFile = "balanceFile.txt"
 
 func main() {
 	fmt.Println("Welcome to Go Bank!")
