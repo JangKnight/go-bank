@@ -1,8 +1,10 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
+	"slices"
 	"strconv"
 )
 
@@ -11,7 +13,7 @@ const balanceFile = "balanceFile.txt"
 func main() {
 	fmt.Println("Welcome to Go Bank!")
 	for {
-		choice := promptChoice()
+		choice, _ := promptChoice()
 		userChoice(choice)
 		if choice == 4 {
 			break
@@ -19,16 +21,20 @@ func main() {
 	}
 }
 
-func promptChoice() (choice int) {
+func promptChoice() (choice int, error error) {
 	fmt.Println("How may I help?")
 	fmt.Println("1. Check balance")
 	fmt.Println("2. Deposit money")
 	fmt.Println("3. Withdraw Money")
 	fmt.Println("4. Exit")
 	fmt.Print("Choice: ")
-	fmt.Scan(&choice)
+	fmt.Scanln(&choice)
 
-	return choice
+	if slices.Contains([]int{1, 2, 3, 4}, choice) {
+		return choice, nil
+	}
+
+	return 0, errors.New("Invalid choice")
 }
 
 func getBalance() string {
@@ -67,6 +73,8 @@ func withdrawMoney(money float64) {
 func userChoice(choice int) {
 	var amount float64
 	switch choice {
+	case 0:
+		fmt.Print("Invalid choice, try again\n\n")
 	case 1:
 		fmt.Print(getBalance())
 	case 2:
