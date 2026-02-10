@@ -3,18 +3,22 @@ package main
 import (
 	"errors"
 	"fmt"
-	"os"
 	"slices"
-	"strconv"
+
+	"example.com/go-bank/accounts"
 )
 
-const balanceFile = "balanceFile.txt"
-
 func main() {
+	var account string
 	fmt.Println("Welcome to Go Bank!")
+	fmt.Print("Please enter your account filename: ")
+	fmt.Scanln(&account)
 	for {
-		choice, _ := promptChoice()
-		userChoice(choice)
+		choice, err := promptChoice()
+		userChoice(choice, account)
+		if err != nil {
+			fmt.Println(err)
+		}
 		if choice == 4 {
 			break
 		}
@@ -23,6 +27,7 @@ func main() {
 
 func promptChoice() (choice int, error error) {
 	fmt.Println("How may I help?")
+	fmt.Println("0. Create new account")
 	fmt.Println("1. Check balance")
 	fmt.Println("2. Deposit money")
 	fmt.Println("3. Withdraw Money")
@@ -30,61 +35,28 @@ func promptChoice() (choice int, error error) {
 	fmt.Print("Choice: ")
 	fmt.Scanln(&choice)
 
-	if slices.Contains([]int{1, 2, 3, 4}, choice) {
+	if slices.Contains([]int{0, 1, 2, 3, 4}, choice) {
 		return choice, nil
 	}
 
 	return 0, errors.New("Invalid choice")
 }
 
-func getBalance() string {
-	data, _ := os.ReadFile(balanceFile)
-	balance := string(data)
-	fmtBalance := fmt.Sprintf("$%s is current balance\n\n", balance)
-	return fmtBalance
-}
-
-func depositMoney(money float64) {
-	if money < 0 {
-		fmt.Print("Deposit must be $0 or greater\n\n")
-		return
-	}
-	data, _ := os.ReadFile(balanceFile)
-	balance := string(data)
-	numericalBalance, _ := strconv.ParseFloat(balance, 64)
-	balance = strconv.FormatFloat((numericalBalance + money), 'f', 2, 64)
-	os.WriteFile(balanceFile, []byte(balance), 0644)
-	fmt.Printf("$%.2f deposited\n$%s is new balance.\n\n", money, balance)
-}
-
-func withdrawMoney(money float64) {
-	data, _ := os.ReadFile(balanceFile)
-	balance := string(data)
-	numericalBalance, _ := strconv.ParseFloat(balance, 64)
-	if money > numericalBalance {
-		fmt.Print("Withdraw exceeds available funds\n\n")
-		return
-	}
-	balance = strconv.FormatFloat((numericalBalance - money), 'f', 2, 64)
-	os.WriteFile(balanceFile, []byte(balance), 0644)
-	fmt.Printf("$%.2f withdrawn\n$%s is new balance.\n\n", money, balance)
-}
-
-func userChoice(choice int) {
+func userChoice(choice int, account string) {
 	var amount float64
 	switch choice {
 	case 0:
-		fmt.Print("Invalid choice, try again\n\n")
+		accounts.CreateAccount(account)
 	case 1:
-		fmt.Print(getBalance())
+		fmt.Print(accounts.GetBalance(account))
 	case 2:
 		fmt.Print("How much to deposit?: $")
 		fmt.Scan(&amount)
-		depositMoney(amount)
+		accounts.DepositMoney(amount, account)
 	case 3:
 		fmt.Print("How much to withdraw?: $")
 		fmt.Scan(&amount)
-		withdrawMoney(amount)
+		accounts.WithdrawMoney(amount, account)
 	case 4:
 		fmt.Println("Goodbye")
 	}
