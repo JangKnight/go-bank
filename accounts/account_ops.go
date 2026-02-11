@@ -8,7 +8,7 @@ import (
 )
 
 func getAccounts() []string {
-	files, _ := os.ReadDir(".")
+	files, _ := os.ReadDir("./accounts")
 	var accounts []string
 	for _, file := range files {
 		if !file.IsDir() {
@@ -31,14 +31,14 @@ func CreateAccount(accountName string) {
 	if accountExists(accountName) {
 		fmt.Printf("Account %s already exists\n\n", accountName)
 	} else {
-		os.WriteFile(accountName, []byte("0.00"), 0644)
+		os.WriteFile("./accounts/"+accountName, []byte("0.00"), 0644)
 		fmt.Printf("Account %s created\n\n", accountName)
 	}
 }
 
 func GetBalance(accountName string) (fmtBalance string) {
 	if accountExists(accountName) {
-		data, _ := os.ReadFile(accountName)
+		data, _ := os.ReadFile("./accounts/" + accountName)
 		balance := string(data)
 		fmtBalance = fmt.Sprintf("$%s is current balance\n\n", balance)
 	} else {
@@ -53,11 +53,11 @@ func DepositMoney(money float64, accountName string) {
 			fmt.Print("Deposit must be $0 or greater\n\n")
 			return
 		}
-		data, _ := os.ReadFile(accountName)
+		data, _ := os.ReadFile("./accounts/" + accountName)
 		balance := string(data)
 		numericalBalance, _ := strconv.ParseFloat(balance, 64)
 		balance = strconv.FormatFloat((numericalBalance + money), 'f', 2, 64)
-		os.WriteFile(accountName, []byte(balance), 0644)
+		os.WriteFile("./accounts/"+accountName, []byte(balance), 0644)
 		fmt.Printf("$%.2f deposited\n$%s is new balance.\n\n", money, balance)
 	} else {
 		fmt.Printf("Account %s does NOT exist!\n\n", accountName)
@@ -66,7 +66,7 @@ func DepositMoney(money float64, accountName string) {
 
 func WithdrawMoney(money float64, accountName string) {
 	if accountExists(accountName) {
-		data, _ := os.ReadFile(accountName)
+		data, _ := os.ReadFile("./accounts/" + accountName)
 		balance := string(data)
 		numericalBalance, _ := strconv.ParseFloat(balance, 64)
 		if money > numericalBalance {
@@ -74,7 +74,7 @@ func WithdrawMoney(money float64, accountName string) {
 			return
 		}
 		balance = strconv.FormatFloat((numericalBalance - money), 'f', 2, 64)
-		os.WriteFile(accountName, []byte(balance), 0644)
+		os.WriteFile("./accounts/"+accountName, []byte(balance), 0644)
 		fmt.Printf("$%.2f withdrawn\n$%s is new balance.\n\n", money, balance)
 	} else {
 		fmt.Printf("Account %s does NOT exist!\n\n", accountName)
