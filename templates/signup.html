@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Go Bank - Sign Up</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <h2 class="text-2xl bg-blue-500 text-white-500 text-center">Go Bank</h2>
+    <div class="flex items-center justify-center h-screen">
+      <form
+        action="/signup"
+        method="POST"
+        class="p-8 bg-amber-100 rounded shadow-md gap-4 flex flex-col w-96"
+      >
+        <label for="name">Username</label>
+        <input
+          class="w-full border"
+          type="text"
+          name="name"
+          placeholder="username"
+          id="name"
+        />
+        <label for="email">Email</label>
+        <input
+          class="w-full border"
+          type="email"
+          name="email"
+          id="email"
+          placeholder="email"
+        />
+        <label for="password">Password</label>
+        <input
+          class="w-full border"
+          type="password"
+          name="password"
+          placeholder="password"
+          id="password"
+        />
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
