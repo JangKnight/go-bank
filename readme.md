@@ -5,7 +5,15 @@
 1. Clone the repository
 2. Run `docker-compose up -d` to start the PostgreSQL database
 3. Run `go run cmd/api/main.go` to start the API server
-   OR `go install github.com/air-verse/air@latest` then run `air` to start the API server with live reload
+
+<br>
+
+OR
+
+<br>
+
+3. `go install github.com/air-verse/air@latest` then run `air` to start the API server with live reload
+
 4. Access the application at `http://localhost:8080`
 
 ## Endpoints
