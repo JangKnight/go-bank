@@ -1,11 +1,4 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>{{ .title }}</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
+{{template "header" .}}
   <body>
     <h2 class="text-center mt-2 mb-10">Hey, {{ .user }}</h2>
     <p>

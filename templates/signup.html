@@ -1,13 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Go Bank - Sign Up</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
+{{template "header" .}}
   <body>
-    <h2 class="text-2xl bg-blue-500 text-white-500 text-center">Go Bank</h2>
+    {{template "banner" .}}
     <div class="flex items-center justify-center h-screen">
       <form
         action="/signup"
