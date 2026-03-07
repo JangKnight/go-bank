@@ -1,4 +1,4 @@
-package utils
+package auth
 
 import (
 	"strconv"
@@ -12,7 +12,7 @@ import (
 const secret = "SUPASAFESECRETSECRET"
 
 type MyClaims struct {
-    Username string `json:"username"`
+    Username *string `json:"username"`
     Email    string `json:"email"`
     jwt.RegisteredClaims
 }

@@ -1,24 +1,24 @@
 {{template "header" .}}
-  <body>
-    {{template "banner" .}}
-    
-    <p class="mt-10 text-center">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga consectetur
-      doloremque magnam soluta quo id. Laborum, magni ullam quos qui temporibus
-      sunt tempore illo accusamus recusandae ea nihil numquam fugiat?
-    </p>
-    
-    <div class="my-8 text-center">
-      <button
-        class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded"
-      >
-        <a href="#">Login</a>
-      </button>
-      <button
-        class="px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white rounded"
-      >
-        <a href="/signup">Signup</a>
-      </button>
-    </div>
-  </body>
-</html>
+<body>
+  {{template "banner" .}}
+
+  <p class="mt-10 text-center">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga consectetur
+    doloremque magnam soluta quo id. Laborum, magni ullam quos qui temporibus
+    sunt tempore illo accusamus recusandae ea nihil numquam fugiat?
+  </p>
+
+  <div class="my-8 text-center">
+    <a
+      class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded"
+      href="#"
+      >Login</a
+    >
+    <a
+      class="px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white rounded"
+      href="/signup"
+      >Signup</a
+    >
+  </div>
+</body>
+{{template "footer" .}}

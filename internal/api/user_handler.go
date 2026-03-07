@@ -6,7 +6,7 @@ import (
 
 	"example.com/go-bank/internal/service"
 	"github.com/gin-gonic/gin"
-	// 	"strings"
+	//"strings"
 )
 
 type UserHandler struct {
@@ -18,17 +18,23 @@ func NewUserHandler(svc *service.UserService) *UserHandler {
 }
 
 func (h *UserHandler) Home(c *gin.Context) {
-	c.HTML(200, "home.html", nil)
+	c.HTML(200, "home.html", gin.H{
+        "Title": "Go Bank - Home",
+    })
+
 }
 
 func (h *UserHandler) Signup(c *gin.Context) {
 	if c.Request.Method == http.MethodGet {
-		c.HTML(http.StatusOK, "signup.html", nil)
+		c.HTML(http.StatusOK, "signup.html", gin.H{
+        "Title": "Go Bank - Create Account",
+    })
+
 		return
 	}
 
 	var input struct {
-		Name     string `form:"name" json:"name" binding:"required"`
+		Name     *string `form:"name" json:"name"`
 		Email    string `form:"email" json:"email" binding:"required,email"`
 		Password string `form:"password" json:"password" binding:"required,min=4"`
 	}
