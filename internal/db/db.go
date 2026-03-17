@@ -2,8 +2,8 @@ package db
 
 import (
 	"context"
-
 	"fmt"
+	"os"
 	"time"
 
 	"example.com/go-bank/migrations"
@@ -21,7 +21,10 @@ func InitDB() (*pgxpool.Pool, error) {
 	defer cancel()
 	
 	var err error
-	dsn := "postgres://user:password@localhost:5432/gobanking"
+	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		dsn = "postgres://user:password@localhost:5432/gobanking"
+	}
 	pool, err = pgxpool.New(context.Background(), dsn)
 	if err != nil {
 		return nil, err
